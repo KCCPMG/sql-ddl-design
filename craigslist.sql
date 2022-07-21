@@ -15,26 +15,26 @@ CREATE DATABASE craigslist;
 
 /* 
 regions
-          id              |  regionName  |
+          id              |  region_name  |
 --------------------------+----------------
-   SERIAL PRIMARY KEY        TEXT UNIQUE
+   SERIAL PRIMARY KEY          TEXT 
 */
 CREATE TABLE regions (
   id SERIAL PRIMARY KEY,
-  regionName TEXT
+  region_name TEXT
 );
 
 
 /* 
 users
-          id              |  username  |  prefRegionId
+          id              |  username  |            pref_region_id
 --------------------------+------------+----------------------------------
    SERIAL PRIMARY KEY         TEXT      FOREIGN KEY REFERENCES regions (id)
 */
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username TEXT,
-  prefRegionId INTEGER REFERENCES regions (id)
+  pref_region_id INTEGER REFERENCES regions (id)
 );
 
 /*
@@ -51,18 +51,18 @@ CREATE TABLE categories (
 
 /*
 posts
-         id       | title | postText |             userId              | location |               regionId           |             categoryId
+         id       | title | post_text |             user_id              | location |               region_id           |             category_id
 ------------------+-------+-----------+----------------------------------+----------+-----------------------------------+-------------------------------------    
-SERIAL PRIMARY KEY   TEXT     TEXT      FOREIGN KEY REFERENCES users (id)    TEXT     FOREIGN KEY REFERENCES regions(id)  FOREIGN KEY REFERENCES categories (id)
+SERIAL PRIMARY KEY   TEXT     TEXT      FOREIGN KEY REFERENCES users (id)    POINT    FOREIGN KEY REFERENCES regions(id)  FOREIGN KEY REFERENCES categories (id)
 */
 CREATE TABLE posts(
   id SERIAL PRIMARY KEY,
   title TEXT,
-  postText TEXT,
-  userId INTEGER REFERENCES users (id),
-  location TEXT,
-  regionId INTEGER REFERENCES regions (id),
-  categoryId INTEGER REFERENCES categories (id)
+  post_text TEXT,
+  user_id INTEGER REFERENCES users (id),
+  location POINT,
+  region_id INTEGER REFERENCES regions (id),
+  category_id INTEGER REFERENCES categories (id)
 );
 
 
